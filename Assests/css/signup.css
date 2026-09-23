@@ -165,3 +165,27 @@ body {
 .watch-toggle-btn:hover .watch-svg {
     stroke: var(--gold-hover, #dfb76c);
 }
+.rolex-mini {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        text-decoration: none;
+    }
+
+    /* تصغير حجم التاج */
+    .rolex-mini .crown {
+        width: 32px;
+        height: auto;
+        fill: #C39B54; /* ذهبي رولكس */
+    }
+
+    /* تصغير حجم الخط وضبطه مع الحجم الجديد */
+    .rolex-mini .text {
+        color: #C39B54;
+        font-family: 'Times New Roman', serif;
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        margin-right: -4px; /* لضبط التوسيط مع الـ letter-spacing */
+    }
