@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolex - Client Login</title>
+    <!-- خطوط الفخامة -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<style>
+    /* رابط ذهبي أنيق */
+.gold-link {
+    color: var(--gold-primary, #c5a059);
+    transition: color 0.3s ease;
+}
+
+.gold-link:hover {
+    color: #ffd885;
+    text-decoration: underline !important;
+}
+
+/* تنسيق الـ Checkbox الذهبي */
+.luxury-check {
+    background-color: #161617;
+    border: 1px solid var(--border-color, #272727);
+}
+
+.luxury-check:checked {
+    background-color: var(--gold-primary, #c5a059);
+    border-color: var(--gold-primary, #c5a059);
+}
+
+.luxury-check:focus {
+    box-shadow: 0 0 5px rgba(197, 160, 89, 0.4);
+}
+
+:root {
+    --gold-primary: #c5a059;
+    --gold-hover: #dfb76c;
+    --dark-surface: #0e0e0e;
+    --border-color: #272727;
+}
+
+body {
+    margin: 0;
+    background-color: #050505;
+    font-family: 'Montserrat', sans-serif;
+    color: #f1f1f1;
+}
+
+/* عمود الصورة اليسار (ملء كامل بدون تكرار بتدرج ناعم) */
+.bg-image-col {
+    background-image: url("rich\ man.png");
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center center;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* طبقة ظل ناعمة تدمج الصورة مع الجانب الداكن بسلاسة */
+.image-overlay {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.1), #050505);
+}
+
+/* تنسيق قسم الفورم */
+.form-section {
+    background-color: #050505;
+}
+
+#info {
+    width: 100%;
+    max-width: 440px;
+    background: #0f0f10;
+    border: 1px solid #1f1f20;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* الخطوط والعناوين */
+.luxury-title {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 1.4rem;
+}
+
+.luxury-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--gold-primary);
+    font-weight: 600;
+    display: block;
+}
+
+/* عناصر الإدخال والتسميات */
+.luxury-label {
+    color: #c9c9c9;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.luxury-input {
+    background-color: #161617 !important;
+    border: 1px solid var(--border-color) ;
+    color: #ffffff !important;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    padding: 0.65rem 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.luxury-input:focus {
+    background-color: #1a1a1c !important;
+    border-color: var(--gold-primary) !important;
+    box-shadow: 0 0 10px rgba(197, 160, 89, 0.25) !important;
+}
+
+.luxury-input::placeholder {
+    color: #555555;
+    font-size: 0.85rem;
+}
+
+/* أخطاء الإدخال */
+
+
+#form-error {
+    display: none;
+    font-size: 0.75rem;
+    color: #e05252 !important;
+}
+
+/* الزر المطابق لزر EXPLORE NOW في الصورة */
+.luxury-btn {
+    background: linear-gradient(135deg, #a8833e, #6e5223);
+    color: #ffffff;
+    border: 1px solid var(--gold-primary);
+    border-radius: 2px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.luxury-btn:hover {
+    background: linear-gradient(135deg, #c5a059, #8f6c32);
+    border-color: #ffd885;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+}
+
+/* زر الساعة التفاعلي داخل الحقل */
+.watch-toggle-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    z-index: 5;
+}
+
+/* رسم الساعة الذهبي */
+.watch-svg {
+    fill: none;
+    stroke: var(--gold-primary, #c5a059);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: all 0.3s ease;
+}
+
+.watch-svg .watch-center-point {
+    fill: var(--gold-primary, #c5a059);
+}
+
+/* علامات الأرقام: مخفية في الوضع العادي */
+.watch-ticks {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* حالة النشاط (عند إظهار كلمة المرور): تظهر علامات الأرقام ويزداد التوهج الذهبي */
+.watch-toggle-btn.active .watch-ticks {
+    opacity: 1;
+}
+
+.watch-toggle-btn.active .watch-svg {
+    stroke: #ffd885;
+    filter: drop-shadow(0 0 5px rgba(223, 183, 108, 0.6));
+}
+
+.watch-toggle-btn:hover .watch-svg {
+    stroke: var(--gold-hover, #dfb76c);
+}
+.rolex-mini {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        text-decoration: none;
+    }
+
+    /* تصغير حجم التاج */
+    .rolex-mini .crown {
+        width: 32px;
+        height: auto;
+        fill: #C39B54; /* ذهبي رولكس */
+    }
+
+    /* تصغير حجم الخط وضبطه مع الحجم الجديد */
+    .rolex-mini .text {
+        color: #C39B54;
+        font-family: 'Times New Roman', serif;
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        margin-right: -4px; /* لضبط التوسيط مع الـ letter-spacing */
+    }
+</style>
+</head>
+
+<body class="bg-black text-light">
+
+    <div class="container-fluid min-vh-100 p-0">
+        <div class="row g-0 min-vh-100">
+
+            <!-- النصف الأيسر: صورة الهيرو الفخمة بدون تكرار وتختفي على الموبايل -->
+            <div class="col-md-6 d-none d-md-block p-0 bg-image-col">
+                <div class="image-overlay w-100 h-100"></div>
+            </div>
+
+            <!-- النصف الأيمن: نموذج الدخول -->
+            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center p-4 form-section">
+
+                <div id="info" class="p-4 p-md-5 rounded-4">
+
+                    <!-- الترويسة -->
+                    <div class="text-center mb-4">
+                        <span class="luxury-subtitle"><div class="rolex-mini">
+    <svg class="crown" viewBox="0 0 100 75" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="26" r="5" />
+        <circle cx="29" cy="13" r="5.5" />
+        <circle cx="50" cy="8" r="6" />
+        <circle cx="71" cy="13" r="5.5" />
+        <circle cx="92" cy="26" r="5" />
+        <path d="M 8,26 L 24,56 L 29,13 L 39,55 L 50,8 L 61,55 L 71,13 L 76,56 L 92,26 C 86,52 70,61 50,61 C 30,61 14,52 8,26 Z" />
+        <path d="M 23,65 C 23,61 77,61 77,65 C 77,69 23,69 23,65 Z" />
+    </svg>
+    <span class="text">ROLEX</span>
+</div></span>
+                        <h2 class="luxury-title mt-1">CLIENT LOGIN</h2>
+                    </div>
+
+                    <form action="" novalidate id="login-form">
+
+                        <!-- حقل البريد الإلكتروني -->
+                        <div id="email-div" class="mb-3">
+                            <label for="login-email" class="form-label luxury-label">Email Address</label>
+                            <input type="email" id="login-email" placeholder="name@example.com"
+                                class="form-control luxury-input">
+
+                        </div>
+
+                        <!-- حقل كلمة المرور مع أيقونة الساعة -->
+                        <div id="pass-div" class="mb-3">
+                            <label for="login-pass" class="form-label luxury-label">Password</label>
+                            <div class="position-relative d-flex align-items-center">
+                                <input type="password" id="login-pass" placeholder="letters@numbers"
+                                    class="form-control luxury-input pe-5">
+
+                                <button type="button" id="togglePassBtn" class="watch-toggle-btn"
+                                    aria-label="Toggle password visibility">
+                                    <svg id="watchIcon" viewBox="0 0 24 24" width="22" height="22" class="watch-svg">
+                                        <circle cx="12" cy="12" r="9" class="watch-rim" />
+                                        <g class="watch-ticks">
+                                            <line x1="12" y1="4.5" x2="12" y2="6.5" />
+                                            <line x1="19.5" y1="12" x2="17.5" y2="12" />
+                                            <line x1="12" y1="19.5" x2="12" y2="17.5" />
+                                            <line x1="4.5" y1="12" x2="6.5" y2="12" />
+                                        </g>
+                                        <circle cx="12" cy="12" r="1.2" class="watch-center-point" />
+                                        <line x1="12" y1="12" x2="12" y2="7.5" class="watch-hand hand-hour" />
+                                        <line x1="12" y1="12" x2="15.5" y2="12" class="watch-hand hand-minute" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- تذكرني + استرجاع كلمة المرور -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input luxury-check" type="checkbox" id="rememberMe">
+                                <label class="form-check-label small gold-link" for="rememberMe">
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="#" class="gold-link small text-decoration-none">Forgot Password?</a>
+                        </div>
+
+                        <!-- زر تسجيل الدخول الذهبي -->
+                        <button type="submit" class="btn luxury-btn w-100 py-2 mb-3">SIGN IN</button>
+                        <p id="form-error" class="text-danger small mt-1">You have entered at least one of your information incorrectly. Please try again.</p>
+                        <!-- رابط الانتقال لإنشاء حساب -->
+                        <div class="text-center mt-3">
+                            <p class="luxury-title mt-0">Don't have an account?<a href="index.html" class=" gold-link small text-decoration-none ms-1 fw-bold">Create
+                                Account</a></p>
+                            
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const passInput = document.getElementById("login-pass");
+const togglePassBtn = document.getElementById("togglePassBtn");
+
+// تفعيل إظهار وإخفاء الباسورد مع أيقونة الساعة
+togglePassBtn.addEventListener("click", () => {
+    const isPassword = passInput.getAttribute("type") === "password";
+
+    if (isPassword) {
+        passInput.setAttribute("type", "text");
+        togglePassBtn.classList.add("active");
+    } else {
+        passInput.setAttribute("type", "password");
+        togglePassBtn.classList.remove("active");
+    }
+});
+
+const email = document.querySelector("#login-email");
+
+const pass = document.querySelector("#login-pass");
+
+const form = document.forms[0];
+const former = document.querySelector("#form-error")
+
+const rememberMe = document.querySelector("#rememberMe");
+
+let data = []; // استخدام let للسماح بإعادة التعيين
+
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://6ab193d69751d2b03e6d5aaa.mockapi.io/project/users');
+xhr.send();
+
+xhr.addEventListener('readystatechange', () => {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        data = JSON.parse(xhr.responseText); // إسناد مباشر للمتغير الخارجي
+    }
+});
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // البحث عن مستخدم يطابق الإيميل وكلمة المرور
+    const userFound = data.find(user => user.email === email.value && user.password === pass.value);
+
+    if (userFound) {
+        const id = userFound.id;
+        document.location.assign(`home.html?id=${id}`);
+        if (rememberMe.checked) {
+            
+            const name = userFound.name;
+            const avatar = userFound.avatar;
+
+            localStorage.setItem("name", name)
+            localStorage.setItem("id", id);
+            localStorage.setItem("email", email.value);
+            localStorage.setItem("avatar", avatar);
+        }
+
+    } else {
+        former.style.display = "inline-block";
+    }
+});
+    </script>
+</body>
+
+</html>
